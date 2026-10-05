@@ -45,3 +45,26 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 /** @var object $router **/
 
 $router->get('/', 'Welcome::index');
+
+// Migration Routes
+$router->get('create-migration/{migration_class}', 'MigrationController::create_migration');
+$router->get('migrate', 'MigrationController::migrate');
+$router->get('rollback', 'MigrationController::rollback');
+$router->get('rollback-all', 'MigrationController::rollback_all');
+$router->get('refresh', 'MigrationController::refresh');
+$router->get('status', 'MigrationController::status');
+
+// Auth Routes
+$router->post('api/auth/register', 'AuthController::register');
+$router->post('api/auth/login', 'AuthController::login');
+$router->post('api/auth/refresh', 'AuthController::refresh');
+$router->post('api/auth/logout', 'AuthController::logout');
+$router->get('api/auth/me', 'AuthController::me');
+
+// Product Routes
+$router->get('api/products', 'ProductController::index');
+$router->post('api/products', 'ProductController::store');
+$router->get('api/products/{id}', 'ProductController::show');
+$router->put('api/products/{id}', 'ProductController::update');
+$router->patch('api/products/{id}', 'ProductController::update');
+$router->delete('api/products/{id}', 'ProductController::destroy');
