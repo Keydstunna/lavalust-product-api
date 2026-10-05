@@ -268,6 +268,13 @@ class Database {
             PDO::ATTR_EMULATE_PREPARES   => false,
         );
 
+        
+if ($driver === 'mysql' && getenv('DB_SSL') === 'true') {
+    $options[PDO::MYSQL_ATTR_SSL_CA] = dirname(__DIR__, 2) . '/' . (getenv('DB_SSL_CA') ?: 'app/config/ca.pem');
+    $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+}
+
+
         try {
             $this->db = new PDO($dsn, $username, $password, $options);
             $this->driver = $this->db->getAttribute(PDO::ATTR_DRIVER_NAME);
